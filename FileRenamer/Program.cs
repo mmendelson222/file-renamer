@@ -12,22 +12,28 @@ namespace FileRenamer
     {
         static void Main(string[] args)
         {
-            GlobalSettings.ParseCommandLine(args);
-
-            switch (GlobalSettings.AppAction)
+            try
             {
-                case GlobalSettings.eAppAction.showHelp:
-                    GlobalSettings.ShowHelp();
-                    break;
-                case GlobalSettings.eAppAction.encrypt:
-                    Console.WriteLine("Encrypt!");
-                    break;
-                default:
-                    Console.WriteLine("default!");
-                    break;
+                GlobalSettings.ParseCommandLine(args);
+                switch (GlobalSettings.AppAction)
+                {
+                    case GlobalSettings.eAppAction.showHelp:
+                        GlobalSettings.ShowHelp();
+                        break;
+                    default:
+                        Console.WriteLine("default!");
+                        break;
+                }
             }
-
-            Prompt();
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.StackTrace);
+            }
+            finally
+            {
+                Prompt();
+            }
         }
 
         private static void Prompt()
